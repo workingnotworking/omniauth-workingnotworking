@@ -9,7 +9,7 @@ module OmniAuth
                                 :access_token_path => '/oauth/token',
                                 :site => 'https://workingnotworking.com' }
 
-      uid { raw_info['id'] }
+      uid { raw_info['id'].to_s }
 
       info do
         {
