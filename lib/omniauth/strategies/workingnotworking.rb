@@ -1,13 +1,12 @@
-require 'omniauth-oauth'
-require 'json'
+require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
-    class Workingnotworking < OmniAuth::Strategies::OAuth
-      option :name, 'wnw'
+    class Workingnotworking < OmniAuth::Strategies::OAuth2
+      option :name, 'workingnotworking'
 
-      option :client_options, { :authorize_url => '/oauth/authorize',
-                                :token_url => '/oauth/token',
+      option :client_options, { :authorize_path => '/oauth/authorize',
+                                :access_token_path => '/oauth/token',
                                 :site => 'https://workingnotworking.com' }
 
       uid { raw_info['id'] }
@@ -27,6 +26,8 @@ module OmniAuth
 
       def raw_info
         @raw_info ||= access_token.get('/api/v1/account').parsed
+      rescue ::Errno::ETIMEDOUT
+        raise ::Timeout::Error
       end
 
       def callback_url
