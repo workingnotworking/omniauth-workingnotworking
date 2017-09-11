@@ -31,7 +31,7 @@ module OmniAuth
           :current_login_at => raw_info['current_login_at'],
           :created_at       => raw_info['created_at'],
           :updated_at       => raw_info['updated_at'],
-          :avatar           => raw_info['avatar.url'],
+          :avatar           => raw_info['avatar'],
           :roles            => raw_info['roles'],
           :profile => {
             :username        => raw_info['profile']['username'],
