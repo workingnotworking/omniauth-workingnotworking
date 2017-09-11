@@ -17,10 +17,36 @@ module OmniAuth
           :last_name        => raw_info['last_name'],
           :email            => raw_info['email'],
           :username         => raw_info['username'],
+          :phone            => raw_info['phone'],
+          :address1         => raw_info['address1'],
+          :address2         => raw_info['address2'],
+          :city             => raw_info['city'],
+          :state            => raw_info['state'],
+          :country          => raw_info['country'],
+          :postal_code      => raw_info['postal_code'],
+          :latitude         => raw_info['latitude'],
+          :longitude        => raw_info['longitude'],
+          :company_id       => raw_info['company_id'],
+          :time_zone        => raw_info['time_zone'],
           :current_login_at => raw_info['current_login_at'],
           :created_at       => raw_info['created_at'],
           :updated_at       => raw_info['updated_at'],
-          :avatar           => raw_info['avatar']
+          :avatar           => raw_info['avatar.url'],
+          :roles            => raw_info['roles'],
+          :profile => {
+            :username        => raw_info['profile']['username'],
+            :company_website => raw_info['profile']['company_website'],
+            :custom_title    => raw_info['profile']['custom_title']
+          },
+          :avatar_image => {
+            :image => {
+              :version  => raw_info['avatar_image']['image']['version'],
+              :filename => raw_info['avatar_image']['image']['filename'],
+              :width    => raw_info['avatar_image']['image']['width'],
+              :height   => raw_info['avatar_image']['image']['height'],
+              :bytes    => raw_info['avatar_image']['image']['bytes']
+            }
+          }
         }
       end
 
