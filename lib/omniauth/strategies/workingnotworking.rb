@@ -50,6 +50,20 @@ module OmniAuth
         }
       end
 
+      # To make the `state` param actually useful, encode any additional params
+      # on the request to /auth/workingnotworking into the `state` param sent to
+      # the provider.
+      def authorize_params
+        options.authorize_params[:state] = SecureRandom.hex(24) + '|' + Base64.strict_encode64(request.params.to_param)
+        params = options.authorize_params.merge(options_for("authorize"))
+        if OmniAuth.config.test_mode
+          @env ||= {}
+          @env["rack.session"] ||= {}
+        end
+        session["omniauth.state"] = params[:state]
+        params
+      end
+
       def raw_info
         @raw_info ||= access_token.get('/api/v1/account').parsed
       rescue ::Errno::ETIMEDOUT
